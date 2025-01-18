@@ -55,7 +55,16 @@
 
   function checkGuess() {
 
-    let userGuess = Number(guessField.value); // Valor debe ser un numero.
+    let userGuess = guessField.value.trim(); // Valor debe ser un numero.
+    
+    if (!Number.isInteger(+userGuess)) {
+        alert("Por favor ingresa un número entero.");
+        guessField.value = '';
+        return; // No incrementa el intento si no es un número entero. 
+    }     
+    
+    userGuess = Number(userGuess);
+    
     if(guessCount === 1) {
       guesses.textContent = 'Número aleatorio anterior: ';
     }
@@ -63,7 +72,7 @@
 
     if(userGuess === randomNumber) {
       lastResult.textContent = '!!!Pérdistes!!!';
-      lastResult.style.backgroundColor = 'green'; // Color de fondo debe ser verde no Negro.
+      lastResult.style.backgroundColor = 'red'; // Color de fondo debe ser verde no Negro.
       lowOrHi.textContent = '';
       setGameOver();
     } else if(guessCount === ATTEMPS) {
@@ -72,7 +81,7 @@
       setGameOver();
     } else {
       lastResult.textContent = 'Incorrecto! ';
-      lastResult.style.backgroundColor = 'red'; // Color de fondo debe ser rojo no verde.
+      lastResult.style.backgroundColor = 'Negro'; // Color de fondo debe ser rojo no verde.
       if(userGuess < randomNumber) {
         lowOrHi.textContent = 'El número es mayor!';
       } else if(userGuess > randomNumber) {
